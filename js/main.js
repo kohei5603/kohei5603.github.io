@@ -1,4 +1,4 @@
-// ハンバーガーメニューの動作
+// JavaScriptの追加
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
     const nav = document.querySelector('nav');
@@ -14,12 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 初期ロード時の位置を記録
     function recordInitialPositions() {
-        if (heroTitle) {
-            heroTitleRect = heroTitle.getBoundingClientRect();
-        }
-        if (logo) {
-            headerLogoRect = logo.getBoundingClientRect();
-        }
+        heroTitleRect = heroTitle.getBoundingClientRect();
+        headerLogoRect = logo.getBoundingClientRect();
     }
     
     // ウィンドウサイズが変わった時のために位置を更新
@@ -29,25 +25,20 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('load', function() {
         recordInitialPositions();
         startImageSlideshow();
+        startHeroSlideshow();
     });
     
-    if (hamburger) {
-        hamburger.addEventListener('click', function() {
-            this.classList.toggle('active');
-            nav.classList.toggle('active');
-        });
-    }
+    hamburger.addEventListener('click', function() {
+        this.classList.toggle('active');
+        nav.classList.toggle('active');
+    });
     
     // ナビゲーションリンクをクリックしたらメニューを閉じる
     const navLinks = document.querySelectorAll('nav ul li a');
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
-            if (hamburger) {
-                hamburger.classList.remove('active');
-            }
-            if (nav) {
-                nav.classList.remove('active');
-            }
+            hamburger.classList.remove('active');
+            nav.classList.remove('active');
         });
     });
     
@@ -58,14 +49,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (scrollY > 100 && !documentScrolled) {
             documentScrolled = true;
-            if (logo) {
-                logo.classList.add('visible');
-            }
+            logo.classList.add('visible');
         } else if (scrollY <= 100 && documentScrolled) {
             documentScrolled = false;
-            if (logo) {
-                logo.classList.remove('visible');
-            }
+            logo.classList.remove('visible');
         }
         
         // ヒーロータイトルのフェードアウト
@@ -84,9 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const scrollY = window.scrollY;
         
         if (scrollY > 50) {
-            if (header) {
-                header.classList.add('scrolled');
-            }
+            header.classList.add('scrolled');
             
             // ヒーローテキストのフェードアウト
             if (heroText) {
@@ -98,9 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
             animateHeaderLogo(scrollY);
             
         } else {
-            if (header) {
-                header.classList.remove('scrolled');
-            }
+            header.classList.remove('scrolled');
             
             // ヒーローテキストの復元
             if (heroText) {
@@ -129,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                const headerHeight = header ? header.offsetHeight : 0;
+                const headerHeight = document.querySelector('header').offsetHeight;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
                 
                 window.scrollTo({
@@ -140,14 +123,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // 画像スライドショー機能
+    // ヒーロースライドショー機能
+    function startHeroSlideshow() {
+        const heroSlides = document.querySelectorAll('.hero-slide');
+        let currentSlideIndex = 0;
+        
+        // 3秒ごとにヒーロー画像を切り替え
+        setInterval(() => {
+            // 現在の画像を非アクティブに
+            heroSlides[currentSlideIndex].classList.remove('active');
+            
+            // 次の画像のインデックスを計算
+            currentSlideIndex = (currentSlideIndex + 1) % heroSlides.length;
+            
+            // 次の画像をアクティブに
+            heroSlides[currentSlideIndex].classList.add('active');
+        }, 3000);
+    }
+    
+    // 特徴セクション画像スライドショー機能
     function startImageSlideshow() {
         const featureSections = document.querySelectorAll('.feature-section');
         
         featureSections.forEach(section => {
             const images = section.querySelectorAll('.feature-img');
-            if (images.length === 0) return;
-            
             let currentIndex = 0;
             
             // 最初の画像をアクティブに
