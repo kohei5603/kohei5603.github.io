@@ -182,27 +182,31 @@
             to { opacity: 0; transform: translateY(-30px); }
         }
         
-        #hero-title {
-            font-family: 'Roboto', 'Noto Sans JP', sans-serif;
-            font-size: 80px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            margin-top: -80px; /* この行を追加（数値は調整可能） */
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: all 0.5s ease;
-            position: relative;
-        }
-        
-        .hero p {
-            font-family: 'Noto Sans JP', sans-serif;
-            font-size: 18px;
-            margin-bottom: 40px;
-            line-height: 1.8;
-            font-weight: 400;
-            opacity: 1;
-            transition: all 0.5s ease;
-        }
+       /* スタジオ名（ヒーロータイトル）のスタイル */
+#hero-title {
+    font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+    font-size: 80px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    margin-top: -50px; /* 上に移動 */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.5s ease;
+    position: relative;
+    color: #000; /* スタジオ名を白色に */
+}
+
+/* コメント部分のスタイル */
+.hero p {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 18px;
+    margin-bottom: 40px;
+    line-height: 1.8;
+    font-weight: 400;
+    opacity: 1;
+    transition: all 0.5s ease;
+    color: #f0f0f0; /* コメント部分を少し違う色に（例: 薄い灰色） */
+}
         
         .btn {
             font-family: 'Roboto', 'Noto Sans JP', sans-serif;
